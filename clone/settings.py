@@ -29,6 +29,8 @@ INSTALLED_APPS = [
 
 INSTALLED_APPS += [
     "quena.apps.QuenaConfig",
+    "markdownify",
+    "crispy_forms",
 ]
 
 MIDDLEWARE = [
@@ -123,3 +125,5 @@ MARKDOWNIFY_STRIP = False
 MARKDOWNIFY_WHITELIST_TAGS = [
     "a", "blockquote", "code", "em", "h1", "h2", "h3", "h4", "h5", "h6", "h7", "li", "ol", "p", "strong", "ul",
 ]
+
+CRISPY_TEMPLATE_PACK = "bootstrap4"
