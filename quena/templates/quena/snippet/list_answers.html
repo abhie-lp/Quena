@@ -3,6 +3,12 @@
 <ul class="list-unstyled answers">
     {% for answer in question.answer_set.all %}
         <li class="answer row">
+            <div class="col-sm-9 col-md-10">
+                <div class="body">{{answer.answer|markdownify}}</div>
+                <div class="meta font-weight-light">
+                    <p>Answered by {{answer.user}} on {{answer.created}}</p>
+                </div>
+            </div>
             <div class="col-sm-3 col-md-2 text-center">
                 {% if answer.accepted %}
                     <span class="badge badge-pill badge-success">Accepted</span>
@@ -11,7 +17,7 @@
                     <form method="POST" action="{% url 'quena:update_answer_acceptance' answer.pk %}">
                         {% csrf_token %}
                         {{reject_form}}
-                        <button type="submit" class="btn btn-link">
+                        <button type="submit" class="btn btn-danger btn-sm" name="action" value="REJECT">
                             <i class="fa fa-times" aria-hidden="true"></i>Reject
                         </button>
                     </form>
@@ -19,20 +25,11 @@
                     <form method="POST" action="{% url 'quena:update_answer_acceptance' answer.pk %}">
                         {% csrf_token %}
                         {{accept_form}}
-                        <button type="submit" class="btn btn-success" title="Accept">
+                        <button type="submit" class="btn btn-success" name="action" value="ACCEPT">
                             <i class="fa fa-check-circle" aria-hidden="true"></i>Accept
                         </button>
                     </form>
                 {% endif %}
-            </div>
-            <div class="col-sm-9 col-md-10">
-                <div class="body">{[answer.answer|markdownify}}</div>
-                <div class="meta font-weight-light">
-                    <p>Answered by {{answer.user}} on {{answer.created}}</p>
-                    {% if not answer.created == answer.updated %}
-                        <p>Edited on {{answer.updated}}</p>
-                    {% endif %}
-                </div>
             </div>
         </li>
     {% empty %}
