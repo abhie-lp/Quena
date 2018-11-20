@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}
+    {{question.title}} - {{block.quote}}
+{% endblock title %}
+
+{% block body %}
+    {% include "quena/snippet/display_question.html" %}
+    {% include "quena/snippet/list_answers.html" %}
+    {% if user.is_authenticated %}
+        {% include "quena/snippet/post_answer.html" %}
+    {% else %}
+        <div><strong><a href="#">Login</a></strong> to post answers</div>
+    {% endif %}
+{% endblock body %}
