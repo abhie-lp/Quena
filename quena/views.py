@@ -1,10 +1,10 @@
-from .models import Question
+from .models import Question, Answer
 from .forms import QuestionForm, AnswerForm, AnswerAcceptanceForm
 from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.detail import DetailView
-from django.http import HttpResponseBadRequest
+from django.http import HttpResponseBadRequest, HttpResponseRedirect
 
 
 class QuestionCreateView(LoginRequiredMixin, CreateView):
@@ -80,3 +80,22 @@ class AnswerCreateView(LoginRequiredMixin, CreateView):
     
     def get_question(self):
         return Question.objects.get(pk=self.kwargs["pk"])
+
+
+class UpdateAnswerAcceptanceView(LoginRequiredMixin, UpdateView):
+    form_class = AnswerAcceptanceForm
+    queryset = Answer.objects.all()
+
+    def get_success_url(self):
+        return self.object.question.get_absolute_url()
+    
+    def form_valid(self, form):
+        action = self.request.POST.get("action")
+        if action == "REJECT":
+            self.object.accepted = False
+            self.object.save()
+            return HttpResponseRedirect(redirect_to=self.object.question.get_absolute_url())
+        elif action == "ACCEPT":
+            self.object.accepted = True
+            self.object.save()
+            return HttpResponseRedirect(redirect_to=self.object.question.get_absolute_url())
