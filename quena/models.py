@@ -17,3 +17,18 @@ class Question(models.Model):
     
     def can_accept_answers(self, user):
         return user == self.user
+
+
+class Answer(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    answer = models.TextField()
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    accepted = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = "-created",
+    
+    def __str__(self):
+        return self.question.title
