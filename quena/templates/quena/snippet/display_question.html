@@ -1,0 +1,13 @@
+{% load markdownify %}
+<div class="question">
+    <div class="meta col-sm-12">
+        <h1>{{question.title}}</h1>
+        <p>Asked by <strong>{{question.user}}</strong> on {{question.created}}</p>
+        {% if not question.created ==  question.updated %}
+            <p>Edited on {{question.updated}}</p>
+        {% endif %}
+    </div>
+    <div class="body col-sm-12">
+        {{question.question|markdownify}}
+    </div>
+</div>
