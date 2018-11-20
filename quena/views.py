@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.detail import DetailView
+from django.views.generic.dates import DayArchiveView
 from django.http import HttpResponseBadRequest, HttpResponseRedirect
 
 
@@ -99,3 +100,10 @@ class UpdateAnswerAcceptanceView(LoginRequiredMixin, UpdateView):
             self.object.accepted = True
             self.object.save()
             return HttpResponseRedirect(redirect_to=self.object.question.get_absolute_url())
+
+
+class DailyQuestionListView(DayArchiveView):
+    queryset = Question.objects.all()
+    date_field = "created"
+    month_format = "%m"
+    allow_empty = True
