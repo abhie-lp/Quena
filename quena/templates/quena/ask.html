@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load markdownify %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Ask Questions
+{% endblock title %}
+
+{% block body %}
+    <div class="col-md-12">
+        <h1>Ask a Question</h1>
+        {% if preview %}
+            <div class="card question-preview">
+                <div class="card-header">Question Preview</div>
+                <div class="card-body">
+                    <h1 class="card-title">{{preview.title}}</h1>
+                    {{preview.question|markdownify}}
+                </div>
+            </div>
+        {% endif %}
+        <form method="POST">
+            {% csrf_token %}
+            {{form|crispy}}
+            <button class="btn btn-primary" type="submit" name="action" value="PREVIEW">Preview</button>
+            <button class="btn btn-success" type="submit" name="action" value="SAVE">Ask!!</button>
+        </form >
+    </div>
+{% endblock body %}
+    
