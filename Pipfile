@@ -8,6 +8,7 @@ django = "*"
 pylint = "*"
 "psycopg2" = "*"
 django-markdownify = "*"
+django-crispy-forms = "*"
 
 [dev-packages]
 
