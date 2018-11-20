@@ -16,7 +16,7 @@
                         </button>
                     </form>
                 {% elif accept_form %}
-                    <form method="POST" action="{% url 'quena:update_answer-acceptance' answer.pk %}">
+                    <form method="POST" action="{% url 'quena:update_answer_acceptance' answer.pk %}">
                         {% csrf_token %}
                         {{accept_form}}
                         <button type="submit" class="btn btn-success" title="Accept">

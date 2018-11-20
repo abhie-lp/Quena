@@ -1,7 +1,7 @@
 {% load crispy_forms_tags %}
 <div class="col-sm-12">
     <h3>Post your answer</h3>
-    <form method="POST" action="{% url 'quena:question_detail' question.id %}">
+    <form method="POST" action="{% url 'quena:answer_question' question.id %}">
         {% csrf_token %}
         {{answer_form|crispy}}
         <button class="btn btn-primary" type="submit" name="action" value="PREVIEW">Preview</button>
