@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Questions on {{day}}
+{% endblock title %}
+
+{% block body %}
+    <div class="col-sm-12">
+        <h1>Highest Voted Questions of {{day}}</h1>
+        <ul>
+            {% for question in object_list %}
+                <li>{{question.votes}}
+                    <a href="{{question.get_absolute_url}}">{{question}}</a>
+                    by <strong>{{question.user}}</strong> on <strong>{{question.created}}</strong>
+                </li>
+            {% empty %}
+                <li>Hmmmmmm.. Everyone thinks they know everything today..</li>
+            {% endfor %}
+        </ul>
+
+        <div>
+            {% if previous_day %}
+                <a class="btn btn-secondary btn-sm" href="{% url 'quena:daily_questions' year=previous_day.year month=previous_day.month day=previous_day.day %}"><< Previous</a>
+            {% endif %}
+            {% if next_day %}
+                <a class="btn btn-primary btn-sm" href="{% url 'quena:daily_questions' year=next_day.year month=next_day.month day=next_day.day %}">>> Next Day</a>
+            {% endif %}
+        </div>
+    </div>
+{% endblock body %}
+    
