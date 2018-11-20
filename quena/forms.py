@@ -1,4 +1,4 @@
-from .models import Question
+from .models import Question, Answer
 from django import forms
 from django.contrib.auth import get_user_model
 
@@ -13,3 +13,32 @@ class QuestionForm(forms.ModelForm):
     class Meta:
         model = Question
         fields = "title", "question", "user",
+
+
+class AnswerForm(forms.ModelForm):
+    user = forms.ModelChoiceField(
+        widget=forms.HiddenInput,
+        queryset=get_user_model().objects.all(),
+        disabled=False,
+    )
+
+    question = forms.ModelChoiceField(
+        widget=forms.HiddenInput,
+        queryset=Question.objects.all(),
+        disabled=True,
+    )
+
+    class Meta:
+        model = Answer
+        fields = "answer", "user", "question",
+
+
+class AnswerAcceptanceForm(forms.ModelForm):
+    accepted = forms.BooleanField(
+        widget=forms.HiddenInput,
+        required=False,
+    )
+
+    class Meta:
+        model = Answer
+        fields = "accepted",
