@@ -7,5 +7,5 @@ urlpatterns = [
 
 
 urlpatterns += [
-    path("ask/", include("quena.urls", namespace="quena")),
+    path("", include("quena.urls", namespace="quena")),
 ]
