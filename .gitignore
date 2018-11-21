@@ -1,3 +1,5 @@
 clone/__pycache__/
 quena/migrations/
 .vscode
+user/migrations/
+user/__pycache__/
