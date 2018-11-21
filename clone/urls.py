@@ -8,4 +8,5 @@ urlpatterns = [
 
 urlpatterns += [
     path("", include("quena.urls", namespace="quena")),
+    path("user/", include("user.urls", namespace="user")),
 ]
