@@ -5,7 +5,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.detail import DetailView
 from django.views.generic.dates import DayArchiveView
+from django.views.generic.base import RedirectView
 from django.http import HttpResponseBadRequest, HttpResponseRedirect
+from django.utils import timezone
+from django.urls.base import reverse
 
 
 class QuestionCreateView(LoginRequiredMixin, CreateView):
@@ -107,3 +110,15 @@ class DailyQuestionListView(DayArchiveView):
     date_field = "created"
     month_format = "%m"
     allow_empty = True
+
+
+class TodayQuestionListView(RedirectView):
+    def get_redirect_url(self, *args, **kwargs):
+        today = timezone.now()
+        return reverse("quena:daily_questions",
+            kwargs={
+                "day": today.day,
+                "month": today.month,
+                "year": today.year,
+            }
+        )
