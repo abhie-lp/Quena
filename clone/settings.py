@@ -31,6 +31,7 @@ INSTALLED_APPS += [
     "quena.apps.QuenaConfig",
     "markdownify",
     "crispy_forms",
+    "user.apps.UserConfig",
 ]
 
 MIDDLEWARE = [
