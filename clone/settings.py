@@ -79,7 +79,7 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "stack_clone",
-        "USER": "at",
+        "USER": "abhie",
     }
 }
 
