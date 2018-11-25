@@ -9,6 +9,7 @@ pylint = "*"
 "psycopg2" = "*"
 django-markdownify = "*"
 django-crispy-forms = "*"
+elasticsearch = "*"
 
 [dev-packages]
 
