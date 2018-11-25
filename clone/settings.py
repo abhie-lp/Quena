@@ -132,3 +132,7 @@ CRISPY_TEMPLATE_PACK = "bootstrap4"
 LOGIN_URL = "user:login"
 LOGIN_REDIRECT_URL = "quena:index"
 LOGOUT_REDIRECT_URL = "quena:index"
+
+ES_INDEX = "quena"
+ES_HOST = "localhost"
+ES_PORT = "9200"
