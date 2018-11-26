@@ -6,9 +6,11 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.detail import DetailView
 from django.views.generic.dates import DayArchiveView
 from django.views.generic.base import RedirectView
+from django.views.generic.base import TemplateView
 from django.http import HttpResponseBadRequest, HttpResponseRedirect
 from django.utils import timezone
 from django.urls.base import reverse
+from .service.elasticsearch import search_for_questions
 
 
 class QuestionCreateView(LoginRequiredMixin, CreateView):
@@ -122,3 +124,15 @@ class TodayQuestionListView(RedirectView):
                 "year": today.year,
             }
         )
+
+
+class SearchView(TemplateView):
+    template_name = "quena/search.html"
+
+    def get_context_data(self, **kwargs):
+        query = self.request.GET.get("question", None)
+        ctx = super().get_context_data(query=query, **kwargs)
+        if query:
+            results = search_for_questions(query)
+            ctx["hits"] = results
+        return ctx
