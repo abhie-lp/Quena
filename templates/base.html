@@ -33,6 +33,12 @@
                             <a class="nav-link" href="{% url 'user:register' %}">Register</a>
                         </li>
                     {% endif %}
+                    <li class="nav-item">
+                        <form class="form-inline" action="{% url 'quena:question_search' %}" method="GET">
+                            <input class="form-control mr-sm-2" type="search" name="question" placeholder="Search">
+                            <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
+                        </form>
+                    </li>
                 </ul>
             </div>
         </nav>
